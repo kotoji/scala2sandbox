@@ -8,8 +8,20 @@ ThisBuild / organizationName := "example"
 lazy val root = (project in file("."))
   .settings(
     name := "scala2sandbox",
-    libraryDependencies += munit % Test,
+    libraryDependencies ++= Seq(
+      "org.http4s" %% "http4s-jdk-http-client" % "0.7.0",
+      munit % Test
+    ),
     scalacOptions ++= Seq("-Xsource:3")
   )
 
-// See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for instructions on how to publish to Sonatype.
+lazy val udfpcats = (project in file("udemy-fpcats"))
+  .settings(
+    name := "udfpcats",
+    Compile / mainClass := Some("udfpcats.Main"),
+    scalacOptions ++= Seq("-Xsource:3"),
+    libraryDependencies ++= Seq(
+      "org.typelevel" %% "cats-effect" % "3.4.5",
+      munit % Test
+    )
+  )
